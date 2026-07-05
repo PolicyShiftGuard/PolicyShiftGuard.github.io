@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="PolicyShiftGuard: Benchmarking and Improving Policy-Adaptive Image Guardrails."
+    />
+    <meta property="og:title" content="PolicyShiftGuard" />
+    <meta
+      property="og:description"
+      content="Official project page for PolicyShiftGuard and PolicyShiftBench."
+    />
+    <meta property="og:image" content="assets/pipeline.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>PolicyShiftGuard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="PolicyShiftGuard home">
+          <span class="brand-mark">PSG</span>
+          <span>PolicyShiftGuard</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#benchmark">Benchmark</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#examples">Examples</a>
+          <a href="#citation">Citation</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero section">
+          <div class="hero-copy">
+            <p class="eyebrow">Policy-adaptive image guardrails</p>
+            <h1>Benchmarking and Improving Policy-Adaptive Image Guardrails</h1>
+            <p class="lead">
+              PolicyShiftGuard studies whether multimodal guardrails can follow the active
+              runtime policy, rather than applying a fixed safe/unsafe taxonomy to every image.
+            </p>
+            <p class="authors">
+              Mingyang Song, Luxin Xu, Haoyu Sun, Minzhou Pan, Yu Cheng, Bo Li
+            </p>
+            <div class="actions">
+              <a class="button primary" href="#citation">Paper coming soon</a>
+              <a
+                class="button"
+                href="https://huggingface.co/datasets/PolicyShiftBench/PolicyShiftBench"
+                >Dataset</a
+              >
+              <a class="button" href="https://github.com/ssmisya/AdaptiveGuard">Code</a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <img src="assets/pipeline.png" alt="Overview of benchmark construction and training pipeline" />
+          </div>
+        </section>
+
+        <section class="stats-bar" aria-label="PolicyShiftBench statistics">
+          <div>
+            <strong>2,000</strong>
+            <span>evaluation instances</span>
+          </div>
+          <div>
+            <strong>265</strong>
+            <span>unique images</span>
+          </div>
+          <div>
+            <strong>28</strong>
+            <span>evaluation policies</span>
+          </div>
+          <div>
+            <strong>7 x 5</strong>
+            <span>risk categories x scenarios</span>
+          </div>
+        </section>
+
+        <section id="benchmark" class="section split-section">
+          <div class="section-copy">
+            <p class="eyebrow">PolicyShiftBench</p>
+            <h2>A benchmark where the same image can flip labels under different policies.</h2>
+            <p>
+              PolicyShiftBench separates image perception from policy judgment. Fine-grained
+              visual attributes are voted by multiple annotators, then deterministic policy rules
+              produce category-level and image-level labels.
+            </p>
+            <ul class="check-list">
+              <li>Seven risk categories spanning nudity, violence, regulated goods, IP, culture, privacy, and text safety.</li>
+              <li>Scenario-grounded policy variants from mainstream social platforms to specialized domains.</li>
+              <li>Same-image policy flips for measuring true policy sensitivity.</li>
+            </ul>
+          </div>
+          <figure class="figure-panel">
+            <img src="assets/benchmark_info.png" alt="Scenario by risk category policy matrix" />
+            <figcaption>Scenario x risk category policy matrix used to instantiate policy variants.</figcaption>
+          </figure>
+        </section>
+
+        <section id="method" class="section">
+          <div class="section-heading centered">
+            <p class="eyebrow">PolicyShiftGuard</p>
+            <h2>Two-stage training for policy-conditioned decisions.</h2>
+            <p>
+              The model is trained to read policy text, bind it to visual evidence, and output a
+              concise structured decision.
+            </p>
+          </div>
+          <div class="method-grid">
+            <article class="method-card">
+              <span class="step">Stage 1</span>
+              <h3>Randomized Policy SFT</h3>
+              <p>
+                Randomizes policy identifiers and ordering during supervised fine-tuning so the
+                model follows policy semantics instead of memorizing fixed slots.
+              </p>
+            </article>
+            <article class="method-card accent">
+              <span class="step">Stage 2</span>
+              <h3>Boundary-Pair Policy Adaptation</h3>
+              <p>
+                Trains paired prompts for the same image and target risk category, where one policy
+                permits the image and another policy blocks it.
+              </p>
+            </article>
+            <article class="method-card">
+              <span class="step">Output</span>
+              <h3>Structured Guardrail Decision</h3>
+              <p>
+                Uses short final answers such as <code>true | 02</code> or <code>false</code>,
+                enabling fast evaluation and reliable category attribution.
+              </p>
+            </article>
+          </div>
+          <figure class="wide-figure">
+            <img src="assets/method_overview.png" alt="PolicyShiftGuard method overview" />
+          </figure>
+        </section>
+
+        <section id="results" class="section results-section">
+          <div class="section-heading">
+            <p class="eyebrow">Main findings</p>
+            <h2>Policy sensitivity improves while keeping the guardrail compact.</h2>
+          </div>
+          <div class="result-cards">
+            <article>
+              <span>PolicyShiftGuard-7B</span>
+              <strong>76.9</strong>
+              <p>Avg. F1 on PolicyShiftBench</p>
+            </article>
+            <article>
+              <span>PolicyShiftGuard-7B</span>
+              <strong>72.1</strong>
+              <p>Avg. Policy Shift Score</p>
+            </article>
+            <article>
+              <span>Qwen2.5-VL-7B baseline</span>
+              <strong>20.6 -> 76.9</strong>
+              <p>Avg. F1 after policy-adaptive training</p>
+            </article>
+          </div>
+          <div class="figure-grid">
+            <figure class="figure-panel">
+              <img src="assets/speed_accuracy.png" alt="Average F1 versus inference speed" />
+              <figcaption>Performance-latency tradeoff.</figcaption>
+            </figure>
+            <figure class="figure-panel">
+              <img src="assets/category_heatmap.png" alt="Risk category heatmap" />
+              <figcaption>Category-wise accuracy and F1 reveal uneven policy difficulty.</figcaption>
+            </figure>
+          </div>
+          <figure class="wide-figure compact">
+            <img src="assets/ablation.png" alt="Ablation analysis for training weights" />
+          </figure>
+        </section>
+
+        <section id="examples" class="section">
+          <div class="section-heading centered">
+            <p class="eyebrow">Qualitative policy flips</p>
+            <h2>One image, different active policies, different correct decisions.</h2>
+            <p>
+              These cases show why image-level safety recognition alone is not enough: the model
+              must follow the policy boundary currently in force.
+            </p>
+          </div>
+          <div class="example-grid">
+            <figure class="figure-panel">
+              <img src="assets/qualitative_1.png" alt="Qualitative policy flip case 1" />
+            </figure>
+            <figure class="figure-panel">
+              <img src="assets/qualitative_2.png" alt="Qualitative policy flip case 2" />
+            </figure>
+            <figure class="figure-panel">
+              <img src="assets/qualitative_3.png" alt="Qualitative policy flip case 3" />
+            </figure>
+          </div>
+        </section>
+
+        <section id="citation" class="section citation-section">
+          <div class="section-heading">
+            <p class="eyebrow">Citation</p>
+            <h2>Cite PolicyShiftGuard</h2>
+            <p>The arXiv link will be added once the preprint identifier is available.</p>
+          </div>
+          <pre><code>@misc{policyshiftguard2026,
+  title  = {PolicyShiftGuard: Benchmarking and Improving Policy-Adaptive Image Guardrails},
+  author = {Song, Mingyang and Xu, Luxin and Sun, Haoyu and Pan, Minzhou and Cheng, Yu and Li, Bo},
+  year   = {2026},
+  note   = {Preprint}
+}</code></pre>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>PolicyShiftGuard</span>
+        <span>
+          <a href="https://github.com/ssmisya/AdaptiveGuard">Code</a>
+          <a href="https://huggingface.co/datasets/PolicyShiftBench/PolicyShiftBench">Dataset</a>
+        </span>
+      </footer>
+    </div>
+  </body>
+</html>
