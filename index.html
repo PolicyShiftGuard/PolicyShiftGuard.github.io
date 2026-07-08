@@ -114,8 +114,8 @@
             </ul>
           </div>
           <figure class="figure-panel">
-            <img src="assets/benchmark_info.png" alt="Scenario by risk category policy matrix" />
-            <figcaption>Scenario x risk category policy matrix used to instantiate policy variants.</figcaption>
+            <img src="assets/benchmark_matrix.png" alt="PolicyShiftBench data statistics and scenario by risk category policy matrix" />
+            <figcaption>Data statistics and the Scenario &times; Risk Category policy matrix of PolicyShiftBench. Each policy combines a risk category with a realistic moderation scenario (Adaptive / Shift / Augmentation).</figcaption>
           </figure>
         </section>
 
@@ -181,13 +181,13 @@
               <p>Avg. F1 after policy-adaptive training</p>
             </article>
           </div>
-          <div class="figure-grid">
+          <div class="figure-stack">
             <figure class="figure-panel">
-              <img src="assets/speed_accuracy.png" alt="Average F1 versus inference speed" />
-              <figcaption>Performance-latency tradeoff.</figcaption>
+              <img src="assets/speed_accuracy_v2.png" alt="Average F1 versus inference speed" />
+              <figcaption>Average F1 versus inference speed: the performance&ndash;latency tradeoff.</figcaption>
             </figure>
             <figure class="figure-panel">
-              <img src="assets/category_heatmap.png" alt="Risk category heatmap" />
+              <img src="assets/category_heatmap_v2.png" alt="Risk category heatmap of accuracy and F1" />
               <figcaption>Category-wise accuracy and F1 reveal uneven policy difficulty.</figcaption>
             </figure>
           </div>
@@ -205,16 +205,22 @@
               must follow the policy boundary currently in force.
             </p>
           </div>
-          <div class="example-grid">
-            <figure class="figure-panel">
-              <img src="assets/qualitative_1.png" alt="Qualitative policy flip case 1" />
-            </figure>
-            <figure class="figure-panel">
-              <img src="assets/qualitative_2.png" alt="Qualitative policy flip case 2" />
-            </figure>
-            <figure class="figure-panel">
-              <img src="assets/qualitative_3.png" alt="Qualitative policy flip case 3" />
-            </figure>
+          <div class="carousel" id="qualitative-carousel">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous case">&#8249;</button>
+            <div class="carousel-viewport">
+              <figure class="carousel-slide is-active"><img src="assets/qr1.png" alt="Qualitative policy flip case 1" /></figure>
+              <figure class="carousel-slide"><img src="assets/qr2.png" alt="Qualitative policy flip case 2" /></figure>
+              <figure class="carousel-slide"><img src="assets/qr3.png" alt="Qualitative policy flip case 3" /></figure>
+              <figure class="carousel-slide"><img src="assets/qr4.png" alt="Qualitative policy flip case 4" /></figure>
+              <figure class="carousel-slide"><img src="assets/qr5.png" alt="Qualitative policy flip case 5" /></figure>
+              <figure class="carousel-slide"><img src="assets/qr6.png" alt="Qualitative policy flip case 6" /></figure>
+              <figure class="carousel-slide"><img src="assets/qr7.png" alt="Qualitative policy flip case 7" /></figure>
+              <figure class="carousel-slide"><img src="assets/qr8.png" alt="Qualitative policy flip case 8" /></figure>
+              <figure class="carousel-slide"><img src="assets/qr9.png" alt="Qualitative policy flip case 9" /></figure>
+              <figure class="carousel-slide"><img src="assets/qr10.png" alt="Qualitative policy flip case 10" /></figure>
+            </div>
+            <button class="carousel-arrow next" type="button" aria-label="Next case">&#8250;</button>
+            <div class="carousel-dots" aria-hidden="true"></div>
           </div>
         </section>
 
@@ -287,5 +293,40 @@
         </span>
       </footer>
     </div>
+    <script>
+      (function () {
+        var root = document.getElementById("qualitative-carousel");
+        if (!root) return;
+        var slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
+        var prev = root.querySelector(".carousel-arrow.prev");
+        var next = root.querySelector(".carousel-arrow.next");
+        var dotsWrap = root.querySelector(".carousel-dots");
+        var current = 0;
+
+        var dots = slides.map(function (_, i) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.setAttribute("aria-label", "Go to case " + (i + 1));
+          b.addEventListener("click", function () { show(i); });
+          dotsWrap.appendChild(b);
+          return b;
+        });
+
+        function show(i) {
+          current = (i + slides.length) % slides.length;
+          slides.forEach(function (s, idx) { s.classList.toggle("is-active", idx === current); });
+          dots.forEach(function (d, idx) { d.classList.toggle("is-active", idx === current); });
+        }
+
+        prev.addEventListener("click", function () { show(current - 1); });
+        next.addEventListener("click", function () { show(current + 1); });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "ArrowLeft") show(current - 1);
+          else if (e.key === "ArrowRight") show(current + 1);
+        });
+
+        show(0);
+      })();
+    </script>
   </body>
 </html>
