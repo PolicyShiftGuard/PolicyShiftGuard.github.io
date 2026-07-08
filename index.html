@@ -35,6 +35,7 @@
           <a href="#method">Method</a>
           <a href="#results">Results</a>
           <a href="#examples">Examples</a>
+          <a href="#resources">Resources</a>
           <a href="#citation">Citation</a>
           <a href="https://mysong23.github.io/">Homepage</a>
           <div class="nav-dropdown">
@@ -63,10 +64,11 @@
               Mingyang Song, Luxin Xu, Haoyu Sun, Minzhou Pan, Yu Cheng, Bo Li
             </p>
             <div class="actions">
-              <a class="button primary" href="#citation">Paper coming soon</a>
+              <a class="button primary" href="https://arxiv.org/abs/2607.05910">Paper</a>
+              <a class="button" href="https://huggingface.co/PolicyShiftGuard">Models</a>
               <a
                 class="button"
-                href="https://huggingface.co/datasets/PolicyShiftBench/PolicyShiftBench"
+                href="https://huggingface.co/datasets/PolicyShiftGuard/PolicyShiftBench"
                 >Dataset</a
               >
               <a class="button" href="https://github.com/ssmisya/PolicyShiftGuard">Code</a>
@@ -216,17 +218,60 @@
           </div>
         </section>
 
+        <section id="resources" class="section">
+          <div class="section-heading centered">
+            <p class="eyebrow">Open resources</p>
+            <h2>Models and data on Hugging Face.</h2>
+            <p>
+              All checkpoints and datasets are released under the
+              <a href="https://huggingface.co/PolicyShiftGuard">PolicyShiftGuard</a> organization.
+            </p>
+          </div>
+          <div class="resource-grid">
+            <a class="resource-card" href="https://huggingface.co/PolicyShiftGuard/PolicyShiftGuard-7B">
+              <span class="resource-tag">Model</span>
+              <h3>PolicyShiftGuard-7B</h3>
+              <p>Full policy-adaptive guardrail, 7B.</p>
+            </a>
+            <a class="resource-card" href="https://huggingface.co/PolicyShiftGuard/PolicyShiftGuard-3B">
+              <span class="resource-tag">Model</span>
+              <h3>PolicyShiftGuard-3B</h3>
+              <p>Compact policy-adaptive guardrail, 3B.</p>
+            </a>
+            <a class="resource-card" href="https://huggingface.co/PolicyShiftGuard/PolicyShiftGuard-7B-RP-SFT">
+              <span class="resource-tag">Model</span>
+              <h3>PolicyShiftGuard-7B-RP-SFT</h3>
+              <p>Stage-1 Randomized Policy SFT checkpoint, 7B.</p>
+            </a>
+            <a class="resource-card" href="https://huggingface.co/PolicyShiftGuard/PolicyShiftGuard-3B-RP-SFT">
+              <span class="resource-tag">Model</span>
+              <h3>PolicyShiftGuard-3B-RP-SFT</h3>
+              <p>Stage-1 Randomized Policy SFT checkpoint, 3B.</p>
+            </a>
+            <a class="resource-card" href="https://huggingface.co/datasets/PolicyShiftGuard/PolicyShiftBench">
+              <span class="resource-tag data">Dataset</span>
+              <h3>PolicyShiftBench</h3>
+              <p>Evaluation benchmark with same-image policy flips.</p>
+            </a>
+            <a class="resource-card" href="https://huggingface.co/datasets/PolicyShiftGuard/adaptive-policy-v2.8-withreason">
+              <span class="resource-tag data">Dataset</span>
+              <h3>adaptive-policy-v2.8-withreason</h3>
+              <p>Policy-adaptive training data with reasoning.</p>
+            </a>
+          </div>
+        </section>
+
         <section id="citation" class="section citation-section">
           <div class="section-heading">
             <p class="eyebrow">Citation</p>
             <h2>Cite PolicyShiftGuard</h2>
-            <p>The arXiv link will be added once the preprint identifier is available.</p>
+            <p>Our paper is available on <a href="https://arxiv.org/abs/2607.05910">arXiv:2607.05910</a>.</p>
           </div>
-          <pre><code>@misc{policyshiftguard2026,
-  title  = {PolicyShiftGuard: Benchmarking and Improving Policy-Adaptive Image Guardrails},
-  author = {Song, Mingyang and Xu, Luxin and Sun, Haoyu and Pan, Minzhou and Cheng, Yu and Li, Bo},
-  year   = {2026},
-  note   = {Preprint}
+          <pre><code>@article{song2026policyshiftguard,
+  title   = {PolicyShiftGuard: Benchmarking and Improving Policy-Adaptive Image Guardrails},
+  author  = {Song, Mingyang and Xu, Luxin and Sun, Haoyu and Pan, Minzhou and Cheng, Yu and Li, Bo},
+  journal = {arXiv preprint arXiv:2607.05910},
+  year    = {2026}
 }</code></pre>
         </section>
       </main>
@@ -235,8 +280,10 @@
         <span>PolicyShiftGuard</span>
         <span>
           <a href="https://mysong23.github.io/">Homepage</a>
+          <a href="https://arxiv.org/abs/2607.05910">Paper</a>
           <a href="https://github.com/ssmisya/PolicyShiftGuard">Code</a>
-          <a href="https://huggingface.co/datasets/PolicyShiftBench/PolicyShiftBench">Dataset</a>
+          <a href="https://huggingface.co/PolicyShiftGuard">Models</a>
+          <a href="https://huggingface.co/datasets/PolicyShiftGuard/PolicyShiftBench">Dataset</a>
         </span>
       </footer>
     </div>
